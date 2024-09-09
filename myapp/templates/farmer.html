@@ -1,0 +1,62 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer</title>
+    <style>
+        body
+        {
+            background-color:rgb(191, 247, 191);
+        }
+    .myText {
+    fill: rgb(0, 0, 0);
+    font-size: 20px;
+    font-family: Arial;
+    transition: fill 0.3s ease;
+    } 
+    .myText1{
+      fill: rgb(1, 255, 52);
+      font-size: 22px;
+      font-family: Arial;
+      transition: fill 0.3s ease;
+    }
+
+    .myText1:hover {
+      fill: rgb(16, 175, 5) ;   
+    }  
+     #logout{
+            margin-top: 25%;
+            margin-left:-10%;
+            font-size:30px;
+            color:black;
+            border:5px solid rgb(145, 2, 109);
+            border-radius: 10px;   
+        }
+        #logout:hover{
+            background-color:aqua;
+            color:crimson;
+        }  
+    </style>
+</head>
+<body>
+    {% csrf_token %}
+    <svg height="100%" width="100%">
+        <a href="{% url 'add' %}"><rect width="150" height="60" x="50%" y="10%" rx="20" class="myText1"></rect>
+        <text x="53.5%" y="13.5%" class="myText">ADD</text></a>
+
+        <a href="{% url 'remove' %}"><rect width="150" height="60" x="50%" y="20%" rx="20" class="myText1"></rect>
+        <text x="53%" y="23.5%" class="myText">REMOVE</text></a>
+
+        <a href="{% url 'update' %}"><rect width="150" height="60" x="50%" y="30%" rx="20" class="myText1"></rect>
+        <text x="53%" y="33.5%" class="myText">UPDATE</text></a>
+
+        <a href="{% url 'view' %}"><rect width="150" height="60" x="50%" y="40%" rx="20" class="myText1"></rect>
+        <text x="53.5%" y="43.5%" class="myText">VIEW</text></a>
+
+        <a href="{% url 'login' %}"><rect width="160" height="60" x="5%" y="80%" rx="20" id="logout" fill="white"></rect>
+        <text x="7%" y="85%" id="logout">Logout</text></a>
+    </svg>
+   
+    
+</body>
+</html>

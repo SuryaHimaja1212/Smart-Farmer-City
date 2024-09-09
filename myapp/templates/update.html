@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Product</title>
+    <style>
+        body {
+            margin: 7% auto;
+            width: 60%;
+            font-family: Arial, sans-serif;
+            background-color:#484f46;
+            color:white;
+        }
+        fieldset {
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        legend {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1aff00;
+            margin-bottom: 10px;
+        }
+        form {
+            font-size: 18px;
+        }
+        .input {
+            font-size: 16px;
+            margin-top: 10px;
+            width: calc(100% - 20px);
+            height: 30px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .input:focus {
+            outline: none;
+            border-color: #66afe9;
+            box-shadow: 0 0 5px #66afe9;
+        }
+        .submit {
+            font-size: 20px;
+            color: #000000;
+            font-weight: bold;
+            background-color: #1aff00;
+            width: 100%;
+            border: none;
+            padding: 10px 0;
+            margin-top: 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .submit:hover {
+            background-color: #09a701;
+        }
+        .product-select {
+            margin-top: 10px;
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <fieldset>
+        <legend>Update Product</legend>
+        <form id="update-product-form">
+            <label for="product-select"><b>Select Product:</b></label>
+            <select id="product-select" class="product-select" onchange="populateFields()" required>
+                <!-- Products will be dynamically added here -->
+            </select><br><br>
+
+            <label for="new-quantity"><b>New Quantity:</b></label>
+            <input type="number" id="new-quantity" placeholder="Enter new quantity" class="input"><br><br>
+
+            <label for="new-cost-per-kg"><b>New Cost per KG:</b></label>
+            <input type="number" id="new-cost-per-kg" placeholder="Enter new cost per KG" class="input"><br><br>
+
+            <input type="button" value="UPDATE" class="submit" onclick="updateProduct()">
+        </form>
+    </fieldset>
+
+    <script>
+        var loggedInUsername='{{username}}';
+        // Retrieve products from local storage
+        var products = JSON.parse(localStorage.getItem('products')) || [];
+
+        // Populate the select element with product names
+        var productSelect = document.getElementById('product-select');
+        products.forEach(function(product, index) 
+        {
+            if (product.farmerName===loggedInUsername)
+            {
+            var option = document.createElement('option');
+            option.value = index;
+            option.textContent = product.name;
+            productSelect.appendChild(option);
+            }
+        });
+
+        function populateFields() {
+            var selectedIndex = document.getElementById('product-select').value;
+            if (selectedIndex !== '') {
+                var selectedProduct = products[selectedIndex];
+                document.getElementById('new-quantity').value = selectedProduct.quantity;
+                document.getElementById('new-cost-per-kg').value = selectedProduct.costPerKG;
+            }
+        }
+
+        function updateProduct() {
+            var selectedIndex = document.getElementById('product-select').value;
+            var newQuantity = document.getElementById('new-quantity').value;
+            var newCostPerKG = document.getElementById('new-cost-per-kg').value;
+
+            // Update the selected product's quantity and cost per KG only if the new value is provided
+            if (selectedIndex !== '') {
+                if (newQuantity !== '') {
+                    products[selectedIndex].quantity = newQuantity;
+                }
+                if (newCostPerKG !== '') {
+                    products[selectedIndex].costPerKG = newCostPerKG;
+                }
+
+                // Store updated product list back to local storage
+                localStorage.setItem('products', JSON.stringify(products));
+
+                alert('Product updated successfully!');
+            } else {
+                alert('Please select a product to update.');
+            }
+        }
+    </script>
+</body>
+</html>

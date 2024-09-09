@@ -1,0 +1,83 @@
+<html lang="en"></html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+          background: radial-gradient(
+        circle farthest-side at 0% 50%,
+        #282828 23.5%,
+        rgba(255, 170, 0, 0) 0
+      )
+      21px 30px,
+    radial-gradient(
+        circle farthest-side at 0% 50%,
+        #2c3539 24%,
+        rgba(240, 166, 17, 0) 0
+      )
+      19px 30px,
+    linear-gradient(
+        #282828 14%,
+        rgba(240, 166, 17, 0) 0,
+        rgba(240, 166, 17, 0) 85%,
+        #282828 0
+      )
+      0 0,
+    linear-gradient(
+        150deg,
+        #282828 24%,
+        #2c3539 0,
+        #2c3539 26%,
+        rgba(240, 166, 17, 0) 0,
+        rgba(240, 166, 17, 0) 74%,
+        #2c3539 0,
+        #2c3539 76%,
+        #282828 0
+      )
+      0 0,
+    linear-gradient(
+        30deg,
+        #282828 24%,
+        #2c3539 0,
+        #2c3539 26%,
+        rgba(240, 166, 17, 0) 0,
+        rgba(240, 166, 17, 0) 74%,
+        #2c3539 0,
+        #2c3539 76%,
+        #282828 0
+      )
+      0 0,
+    linear-gradient(90deg, #2c3539 2%, #282828 0, #282828 98%, #2c3539 0%) 0 0
+      #282828;
+  background-size: 40px 60px;
+        }
+    .myText {
+      fill: rgb(0, 0, 0);
+      font-size: 24px;
+      font-family: Arial;
+      transition: fill 0.3s ease;
+    } 
+    .myText1{
+      fill: rgb(1, 255, 52);
+      font-size: 24px;
+      font-family: Arial;
+      transition: fill 0.3s ease;
+    }
+    .myText1:hover {
+      fill: rgb(16, 175, 5) ;   
+    }
+    </style>
+</head>
+<body>
+  {% csrf_token %}
+    <svg height="100%" width="100%">
+            <a href="{% url 'register' %}"><rect class="myText1" width="200" height="70" x="30%" y="40%" rx="20" fill="lightgreen"></rect>
+            <text id="f" x="33%" y="46%" class="myText">FARMERS</text></a>
+
+            <a href="{% url 'cust_register' %}"><rect width="200" height="70" x="60%" y="40%" rx="20" class="myText1" ></rect>
+            <text x="62%" y="46%" class="myText">CUSTOMERS</text></a>
+
+    </svg>
+</body>
+</html>

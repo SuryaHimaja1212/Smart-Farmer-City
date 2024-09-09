@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        background: rgb(58,180,121);
+background: linear-gradient(90deg, rgba(58,180,121,1) 0%, rgba(4,60,255,0.29) 50%, rgba(69,252,96,1) 100%);
+    }
+.container{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    width:75%;
+    height:550px;
+    background-position:center;
+    border-radius:10px;
+    margin-top:20px;
+    
+    
+}
+.container .content{
+    position:absolute;
+    top:0;
+    color:rgb(243, 199, 3);
+    left:0;
+    width:58%;
+    height:100%;
+    /* background:rgb(79, 230, 79); */
+    display:flex;
+    justify-content:center;
+    flex-direction:column;
+    text-align:center;
+    background: radial-gradient(
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0.15) 30%,
+        rgba(255, 255, 255, 0.3) 32%,
+        rgba(255, 255, 255, 0) 33%
+      )
+      0 0,
+    radial-gradient(
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0.1) 11%,
+        rgba(255, 255, 255, 0.3) 13%,
+        rgba(255, 255, 255, 0) 14%
+      )
+      0 0,
+    radial-gradient(
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0.2) 17%,
+        rgba(255, 255, 255, 0.43) 19%,
+        rgba(255, 255, 255, 0) 20%
+      )
+      0 110px,
+    radial-gradient(
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0.2) 11%,
+        rgba(255, 255, 255, 0.4) 13%,
+        rgba(255, 255, 255, 0) 14%
+      ) -130px -170px,
+    radial-gradient(
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0.2) 11%,
+        rgba(255, 255, 255, 0.4) 13%,
+        rgba(255, 255, 255, 0) 14%
+      )
+      130px 370px,
+    radial-gradient(
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0.1) 11%,
+        rgba(255, 255, 255, 0.2) 13%,
+        rgba(255, 255, 255, 0) 14%
+      )
+      0 0,
+    linear-gradient(
+      45deg,
+      #343702 0%,
+      #184500 20%,
+      #187546 30%,
+      #006782 40%,
+      #0b1284 50%,
+      #760ea1 60%,
+      #83096e 70%,
+      #840b2a 80%,
+      #b13e12 90%,
+      #e27412 100%
+    );
+  background-size: 470px 470px, 970px 970px, 410px 410px, 610px 610px,
+    530px 530px, 730px 730px, 100% 100%;
+  background-color: #840b2a;
+ 
+  
+    
+    
+}
+.content h1{
+    font-size:40px;
+    font-family:Comic Sans MS;
+}
+.container .logreg-box{
+    position:absolute;
+    top:0;
+    right:0;
+    width:calc(100% - 58%);
+    height:100%;
+    background:rgb(177, 179, 177);
+}
+.logreg-box .form-box{
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    width:100%;
+    height:100%;
+    background:transparent;
+    /* backdrop-filter:blur(20px); */
+    color: #000000;
+}
+.form-box h2{
+    font-size:32px;
+    text-align:center;
+}
+.form-box .input-box{
+    position:relative;
+    width:340px;
+    height:50px;
+    border-bottom:2px solid #000000;
+    margin:30px 0;
+}
+.input-box input{
+    width:100%;
+    height:100%;
+    background:transparent;
+    border:none;
+    outline:none;
+    font-size:16px;
+    font-weight:500;
+    color:#000000;
+}   
+.input-box label{
+    position:absolute;
+    top:50%;
+    left:0;
+    transform:translateY(-50%);
+    color:rgb(0, 0, 0);
+    font-size:20px;
+    font-weight:500;
+    pointer-events:none;
+    transition: .5s ease;
+}
+::placeholder {
+  color: rgb(0, 0, 0);
+  opacity: 1; /* Firefox */
+}
+.animated-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 29px;
+  border: 4px solid;
+  border-color: transparent;
+  font-size: 16px;
+  background-color:lightgreen ;
+  border-radius: 100px;
+  font-weight: 600;
+  color: #00109df5;
+  box-shadow: 0 0 0 2px #ffffff;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.animated-button svg {
+  position: absolute;
+  width: 24px;
+  fill: #2c03b3;
+  z-index: 9;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.animated-button .arr-1 {
+  right: 16px;
+}
+.animated-button .arr-2 {
+  left: -25%;
+}
+.animated-button .circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  background-color: #00ff11;
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.animated-button .text {
+  position: relative;
+  z-index: 1;
+  transform: translateX(-12px);
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.animated-button:hover {
+  box-shadow: 0 0 0 12px transparent;
+  color: #212121;
+  border-radius: 12px;
+}
+.animated-button:hover .arr-1 {
+  right: -25%;
+}
+.animated-button:hover .arr-2 {
+  left: 16px;
+}
+.animated-button:hover .text {
+  transform: translateX(12px);
+}
+.animated-button:hover svg {
+  fill: #0306be;
+}
+.animated-button:active {
+  /* scale: 0.95; */
+  box-shadow: 0 0 0 4px greenyellow;
+}
+.animated-button:hover .circle {
+  width: 220px;
+  height: 220px;
+  opacity: 1;
+}
+p{
+    font-size:20px;
+}
+/* Remove background color from autofill input */
+input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        input:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 30px transparent inset !important;
+            -webkit-text-fill-color: #000 !important;
+            transition: background-color 5000s ease-in-out 0s !important;   
+    }
+input:focus:invalid,
+input:invalid {
+    box-shadow: none;
+}
+</style>
+<body>
+    {% for m in messages%}
+    <center><h2><mark>{{m}}</mark></h2></center>
+    {%endfor%}
+<div class="container">
+    <div class="content">
+        <h2>Welcome To</h2><br>
+        <h1>SMART FARMER CITY</h1>
+           
+
+    </div>
+    <div class="logreg-box">
+            <div class="form-box login">
+                {% for m in messages%}
+                <h3>{{m}}</h3>
+                {%endfor%}
+                <form action="{%url 'cust_register' %}" method="post">
+                    {% csrf_token %}
+                    <h2>Register</h2>
+                    <br>
+                    <div class="input-box">
+                        <input type="text" name="username" placeholder="Enter Username" requried>
+                        
+                    </div>
+                    <div class="input-box">
+                        <input type="email" name="email" placeholder="Enter Email" requried>
+                        
+                    </div>
+
+                    <div class="input-box">
+                        <input type="password" name="password1" placeholder="Enter Password" required>
+        
+                    </div>
+                    <div class="input-box">
+                        <input type="password" name="password2" placeholder="Repeat Password" required>
+        
+                    </div>
+
+                    <button type='submit' class="animated-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="arr-2" viewBox="0 0 24 24">
+                          <path
+                            d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+                          ></path>
+                        </svg>
+                        <span class="text">R E G I S T E R</span>
+                        <span class="circle"></span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="arr-1" viewBox="0 0 24 24">
+                          <path
+                            d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+                          ></path>
+                        </svg>
+                      </button>
+                      
+
+                    <div class="login-register">
+                        <p>Already a user?<a href="{% url 'cust_login' %}">Login</a></p>
+                    </div>
+                </form>
+            </div>
+    </div>
+</div>
+</body>
+</html>

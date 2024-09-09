@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <style>
+        body {
+            margin: 2% auto;
+            width: 80%;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(90deg, rgb(230, 5, 188) 0%, rgba(241, 80, 6, 0.29) 50%, rgb(251, 6, 141) 100%);
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .grid-item {
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            background-color: #02f7ff;
+            position: relative; /* Added for positioning */
+        }
+        .product-name {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .product-details {
+            font-size: 16px;
+        }
+        .buy-button {
+            position: absolute;
+            bottom: 10px;
+            right:35%;
+            background-color: #e8e8e8e8;
+            color: #000;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 10px;
+            border-style: solid;
+            border-color: rgb(1, 1, 1);
+            cursor: pointer;
+        }
+        .buy-button:hover {
+            background-color: #737475;
+        }
+        /* Modal CSS */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto; /* 10% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            max-width: 500px;
+            border-radius: 5px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .modal-content p {
+            margin-bottom: 10px;
+        }
+        .modal-content input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .modal-content button {
+            background-color: #0dff00;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .modal-content button:hover {
+            background-color: #09a701;
+        }
+        #logout{
+            margin-top: 25%;
+            margin-left:-10%;
+            font-size:30px;
+            color:black;
+            border:5px solid rgb(145, 2, 109);
+            border-radius: 10px;   
+        }
+        #logout:hover{
+            background-color:aqua;
+            color:crimson;
+        }
+    </style>
+</head>
+<body>
+    
+    <center><h1 style="text-decoration: underline; font-size:50px; color:rgb(0, 4, 225)">Products</h1></center>
+    <div class="grid-container" id="products-grid">
+        <!-- Products will be added here dynamically -->
+    </div>
+
+    <!-- Modal -->
+    <div id="buy-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Enter quantity:</p>
+            <input type="number" id="quantity-input" min="1" required>
+            <button id="confirm-buy">Buy</button>
+        </div>
+    </div>
+    <button id="logout" onclick="window.location.replace('cust_login.html');">Logout</button>
+    <script>
+        function loadProducts() {
+            var productsGrid = document.getElementById('products-grid');
+            productsGrid.innerHTML = ''; // Clear the grid before loading products
+    
+            var products = JSON.parse(localStorage.getItem('products')) || [];
+
+            products = products.filter(function(product) {
+            return product.quantity > 0;
+        });
+
+        // Update local storage to remove products with zero quantity
+        localStorage.setItem('products', JSON.stringify(products));
+    
+            products.forEach(function(product, index) {
+                var productItem = document.createElement('div');
+                productItem.classList.add('grid-item');
+    
+                var productName = document.createElement('div');
+                productName.classList.add('product-name');
+                productName.textContent = product.name;
+                productItem.appendChild(productName);
+    
+                var productDetails = document.createElement('div');
+                productDetails.classList.add('product-details');
+                productDetails.innerHTML = `
+                    <p>Farmer: ${product.farmerName}</p>
+                    <p>Quantity: ${product.quantity} KG</p>
+                    <p>Cost per KG: ₹${product.costPerKG}</p><br>
+                `;
+                productItem.appendChild(productDetails);
+    
+                var buyButton = document.createElement('button');
+                buyButton.textContent = 'Buy';
+                buyButton.classList.add('buy-button');
+                buyButton.onclick = function() {
+                    openBuyModal(product, index);
+                };
+                productItem.appendChild(buyButton);
+    
+                productsGrid.appendChild(productItem);
+            });
+        }
+        function openBuyModal(product, index) {
+            var modal = document.getElementById('buy-modal');
+            var quantityInput = document.getElementById('quantity-input');
+            var confirmBuyButton = document.getElementById('confirm-buy');
+    
+            modal.style.display = 'block';
+    
+            confirmBuyButton.onclick = function() {
+                var quantity = parseInt(quantityInput.value);
+                if (quantity > 0 && quantity <= product.quantity) {
+                    product.quantity -= quantity;
+                    var products = JSON.parse(localStorage.getItem('products')) || [];
+                    products[index].quantity = product.quantity;
+                    localStorage.setItem('products', JSON.stringify(products));
+                    alert("Successfully placed order for ${quantity} KG of ${product.name}.");
+                    modal.style.display = 'none';
+                    loadProducts();
+                }else{
+                    alert('Please enter a valid quantity.');
+                }
+            };
+    
+            var spanClose = document.getElementsByClassName('close')[0];
+            spanClose.onclick = function() {
+                modal.style.display = 'none';
+            };
+    
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            };
+        }
+    
+        // Load products when the page is loaded
+        window.onload = loadProducts;
+    </script>
+        
+</body>
+</html>

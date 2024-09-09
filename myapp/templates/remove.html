@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remove Product</title>
+    <style>
+        body {
+            background-color:#484f46;
+            margin: 7% auto;
+            width: 60%;
+            font-family: Arial, sans-serif;
+        }
+        fieldset {
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        legend {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1aff00;
+            margin-bottom: 10px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;  
+            color:white;  
+            font-size:17px; 
+        }
+        li {
+            justify-content: space-between; /* Align items with space between */
+            align-items: center; /* Center items vertically */
+            margin-bottom: 25px; /* Space between each product */
+            display:flex;
+        }
+        .remove-btn {
+            margin-top:10px;
+            margin-left:20%;
+            font-size: 15px;
+            color: #000000;
+            font-weight: bold;
+            background-color: #1aff00;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .remove-btn:hover {
+            color:white;
+            background-color: #cc0000;
+        }
+    </style>
+</head>
+<body>
+    <fieldset>
+        <legend>Remove Product</legend>
+        <ul id="product-list">
+            <!-- Products will be dynamically added here -->
+        </ul>
+    </fieldset>
+
+    <script>
+        var loggedInUsername='{{username}}';
+        // Retrieve products from local storage
+        var products = JSON.parse(localStorage.getItem('products')) || [];
+
+        // Display products in the list
+        var productList = document.getElementById('product-list');
+        products.forEach(function(product) {
+            var listItem = document.createElement('li');
+            if (product.farmerName===loggedInUsername)
+            {
+            listItem.textContent = `${product.name} - Quantity: ${product.quantity}, Cost per KG: ${product.costPerKG}`;
+            var removeButton = document.createElement('button');
+            removeButton.textContent = 'Remove';
+            removeButton.classList.add('remove-btn');
+            removeButton.addEventListener('click', function() {
+                // Handle removal action here
+                var index = products.indexOf(product);
+                if (index !== -1) {
+                    products.splice(index, 1);
+                    localStorage.setItem('products', JSON.stringify(products));
+                    listItem.remove();
+                }
+            });
+
+            listItem.appendChild(removeButton);
+            productList.appendChild(listItem);
+        }
+        });
+
+    </script>
+</body>
+</html>
